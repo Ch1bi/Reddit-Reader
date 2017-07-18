@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <title>Reddit Feed</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Arvo font-->
+        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet"> 
+
+        <!--Font Awesome-->
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> 
+        
+        
+    </head>
+
+
+    <body>
+
+        <div id="content" height="500px">
+        
+            <ul class="pics">
+
+                <li class="images">
+                    
+                </li>
+
+            </ul>
+
+        <p class="heading"></p>
+        
+
+        </div>
+    
+    <script>
+
+        // url (required), options (optional)
+fetch("https://www.reddit.com/r/food/top/.json")
+
+.then(function(response) {
+
+return response.json()
+	
+})
+
+.then(function(data){
+
+    for(let i = 0; i < data.data.children; i++){
+
+        var json = data.data.children[i].data
+        var images = json.url
+        var title = json.title
+        var person = json.author
+        var created = json.created_utc
+        var upvotes = json.ups
+    }
+
+    console.log(data.data.children[1])
+    
+})
+
+.catch(function(err) {
+	// Error :(
+});
+
+            images = [] 
+            titles = []
+
+            // $http.get()
+            
+            // .then(function(data){
+
+            // console.log(data.data.data.children[1])
+            // for(var i = 0; i < data.data.data.children.length; i++)
+            // {
+                
+            //     $scope.images.push(data.data.data.children[i].data.url)
+            //     $scope.titles.push(data.data.data.children[i].data.title)
+            // }
+                
+            // })
+        
+
+    </script>   
+    
+  
+
+    </body>
+</html>
