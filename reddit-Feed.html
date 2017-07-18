@@ -12,74 +12,90 @@
 
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> 
         
+        <style>
+
+        img{
+
+                width:350px;
+            }
+
+            li{
+
+                list-style: none;
+                
+            }
+
+            ul{
+
+                margin:0;
+            }
+
+
         
+
+        </style>
+
+
     </head>
 
 
     <body>
 
-        <div id="content" height="500px">
-        
-            <ul class="pics">
-
-                <li class="images">
-                    
-                </li>
-
-            </ul>
-
-        <p class="heading"></p>
-        
-
-        </div>
+        <div id="reader" height="500px"> </div>
     
     <script>
+    
+        var content = document.getElementById('reader')
+      var html ="";
 
         // url (required), options (optional)
 fetch("https://www.reddit.com/r/food/top/.json")
 
+
+
 .then(function(response) {
 
 return response.json()
-	
+
 })
 
 .then(function(data){
+    
+    data.data.children.forEach(function(val, idx){
 
-    for(let i = 0; i < data.data.children; i++){
 
-        var json = data.data.children[i].data
+        console.log(data)  
+        var json = data.data.children[idx].data
         var images = json.url
         var title = json.title
         var person = json.author
         var created = json.created_utc
         var upvotes = json.ups
-    }
+     
 
-    console.log(data.data.children[1])
+       html +='<div class="images">\n';
+       html +='<img src="'+images+'">\n';
+       html +='</div>';
+       html +='<p class ="heading">'+title+'</p>\n';
+       html +='<div class="pic-info">'+person+ created+ upvotes+' </div>';
+       
+       
+
+    })
+
+    content.innerHTML = html
+    console.log(html)
+
+   
     
 })
+
 
 .catch(function(err) {
 	// Error :(
 });
 
-            images = [] 
-            titles = []
-
-            // $http.get()
-            
-            // .then(function(data){
-
-            // console.log(data.data.data.children[1])
-            // for(var i = 0; i < data.data.data.children.length; i++)
-            // {
-                
-            //     $scope.images.push(data.data.data.children[i].data.url)
-            //     $scope.titles.push(data.data.data.children[i].data.title)
-            // }
-                
-            // })
+       
         
 
     </script>   
