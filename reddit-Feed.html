@@ -13,10 +13,20 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> 
         
         <style>
+            
+            body{
 
-        img{
+                margin:0;
+            }
 
-                width:350px;
+              img{
+
+                height:350px;
+                width:500px;
+                display:block;
+                margin: 0 auto;
+
+                margin-bottom:3em;
             }
 
             li{
@@ -25,13 +35,66 @@
                 
             }
 
-            ul{
 
-                margin:0;
+            #reader{
+
+                align-content: center;
+                justify-content: center;
+            }
+
+            .container{
+                
+                margin:0 auto;
+                width:500px;
+                box-shadow: 1px 1px 1px 1px  rgba(0, 0, 0, 0.2);
+            }
+
+            .header{
+                
+                border-bottom: 1px solid #e8e8e8;;
+                margin-bottom: 3em;
             }
 
 
-        
+            #subReddit{
+
+                display: inline-block;
+                background-color:#57a2e4;
+                color:white;
+                font-size:16px;
+                font-family: Helvetica, sans-serif;
+                padding: 0 0.5em 0 0.5em;
+
+            }
+
+            #favorites{
+
+                display: inline-block;
+                font-family: Helvetica, sans-serif;
+                font-size:16px;
+                color:#57a2e4;
+            }
+
+      
+            .heading{
+                font-family: 'Arvo', serif;
+                font-size: 18px;
+                line-height: 24px;
+                color:#000;
+                text-align: center;
+                margin-bottom:2em;
+            }
+
+            .pic-info{
+                border-top: 1px solid #e8e8e8;
+                font-family: Helvetica, sans-serif;
+                font-size:12px;
+                color:#999;
+                text-align: center;
+                margin-bottom:3em;
+                padding-top:1em;   
+                padding-bottom:1em;
+            }
 
         </style>
 
@@ -41,7 +104,21 @@
 
     <body>
 
-        <div id="reader" height="500px"> </div>
+        <div class="header">
+
+            <div id="subReddit">
+                <p><i class="fa fa-reddit-alien" aria-hidden="true"></i>
+/r/food</p>  
+            </div>
+
+                     <div id="favorites">
+                <p><i class="fa fa-heart" aria-hidden="true"></i>
+favorites (<span class="number">0</span>)</p>  
+            </div>
+
+        </div>
+
+        <div id="reader"> </div>
     
     <script>
     
@@ -72,15 +149,14 @@ return response.json()
         var created = json.created_utc
         var upvotes = json.ups
      
-
+       html +='<div class="container">\n';
        html +='<div class="images">\n';
        html +='<img src="'+images+'">\n';
        html +='</div>';
        html +='<p class ="heading">'+title+'</p>\n';
-       html +='<div class="pic-info">'+person+ created+ upvotes+' </div>';
+       html +='<div class="pic-info">'+person +" • "+upvotes+' </div>';
+       html +='</div>';
        
-       
-
     })
 
     content.innerHTML = html
