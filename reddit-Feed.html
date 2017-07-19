@@ -36,7 +36,7 @@
             }
 
 
-            #reader{
+            #feed{
 
                 align-content: center;
                 justify-content: center;
@@ -75,6 +75,15 @@
                 color:#57a2e4;
             }
 
+            #image{
+
+            }
+
+            #image:hover{
+
+             
+            }
+
       
             .heading{
                 font-family: 'Arvo', serif;
@@ -94,6 +103,15 @@
                 margin-bottom:3em;
                 padding-top:1em;   
                 padding-bottom:1em;
+            }
+
+            .like{
+                
+                color:white;
+                position:relative;
+                bottom:380px;
+                left:20px;
+                font-size:2em;
             }
 
         </style>
@@ -118,12 +136,15 @@ favorites (<span class="number">0</span>)</p>
 
         </div>
 
-        <div id="reader"> </div>
+        <div id="feed"> </div>
     
     <script>
-    
-        var content = document.getElementById('reader')
+
+ 
+
+        var content = document.getElementById('feed')
       var html ="";
+
 
         // url (required), options (optional)
 fetch("https://www.reddit.com/r/food/top/.json")
@@ -140,29 +161,26 @@ return response.json()
     
     data.data.children.forEach(function(val, idx){
 
-
-        console.log(data)  
         var json = data.data.children[idx].data
         var images = json.url
         var title = json.title
         var person = json.author
-        var created = json.created_utc
         var upvotes = json.ups
      
        html +='<div class="container">\n';
-       html +='<div class="images">\n';
-       html +='<img src="'+images+'">\n';
+       html +='<div id="image">\n';
+       html +='<img src="'+images+'">' + '<i class="fa fa-heart like" aria-hidden="true"></i>';
        html +='</div>';
        html +='<p class ="heading">'+title+'</p>\n';
-       html +='<div class="pic-info">'+person +" • "+upvotes+' </div>';
+       html +='<div class="pic-info">' + ' <i class="fa fa-user " aria-hidden="true"></i>' 
++'/u/'+person +" • "+ '<i class="fa fa-bolt" aria-hidden="true"></i>'+
+upvotes+' </div>';
        html +='</div>';
        
     })
 
     content.innerHTML = html
-    console.log(html)
 
-   
     
 })
 
@@ -171,8 +189,15 @@ return response.json()
 	// Error :(
 });
 
-       
-        
+
+
+
+
+    
+
+
+
+
 
     </script>   
     
