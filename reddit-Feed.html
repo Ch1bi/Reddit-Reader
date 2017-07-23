@@ -15,75 +15,53 @@
         <style>
             
             body{
-
                 margin:0;
             }
-
               img{
-
                 height:350px;
                 width:500px;
                 display:block;
                 margin: 0 auto;
-
                 margin-bottom:3em;
             }
-
             li{
-
                 list-style: none;
                 
             }
-
-
             #feed{
-
                 align-content: center;
                 justify-content: center;
             }
-
             #container{
                 
                 margin:0 auto;
                 width:500px;
                 box-shadow: 1px 1px 1px 1px  rgba(0, 0, 0, 0.2);
             }
-
             .header{
                 
                 border-bottom: 1px solid #e8e8e8;;
                 margin-bottom: 3em;
             }
-
-
             #subReddit{
-
                 display: inline-block;
                 background-color:#57a2e4;
                 color:white;
                 font-size:16px;
                 font-family: Helvetica, sans-serif;
                 padding: 0 0.5em 0 0.5em;
-
             }
-
             #favorites{
-
                 display: inline-block;
                 font-family: Helvetica, sans-serif;
                 font-size:16px;
                 color:#57a2e4;
             }
-
             #image{
-
             }
-
             #image:hover{
-
              
             }
-
       
             #heading{
                 font-family: 'Arvo', serif;
@@ -93,7 +71,6 @@
                 text-align: center;
                 margin-bottom:2em;
             }
-
             #pic-info{
                 border-top: 1px solid #e8e8e8;
                 font-family: Helvetica, sans-serif;
@@ -104,7 +81,6 @@
                 padding-top:1em;   
                 padding-bottom:1em;
             }
-
             .like{
                 
                 color:white;
@@ -113,7 +89,6 @@
                 left:20px;
                 font-size:2em;
             }
-
         </style>
 
 
@@ -139,91 +114,62 @@ favorites (<span class="number">0</span>)</p>
         <div id="feed"> </div>
     
     <script>
-
     var start = document.getElementById("feed")
-
+    
         //1. set up the initial page
         window.onload = function(){
 
-    
-                    var content = document.createElement('div')
-                    content.id="container"
-                    start.appendChild(content)
-
-                    var imgContainer = document.createElement('div')
-                    imgContainer.id="image"
-                    content.appendChild(imgContainer)
-
-                    var titleContent = document.createElement('p')
-                    titleContent.id="heading"
-                    content.appendChild(titleContent)
-
-                    var info = document.createElement('div')
-                    info.id="pic-info"
-                    content.appendChild(info)
-                  
-
-        }
-
-       
-
-
-        //2. use fetch to get pics and content from Reddit
+            //2. use fetch to get pics and content from Reddit
         fetch("https://www.reddit.com/r/food/top/.json")
-
-
             .then(function(response) {
-
             return response.json()
-
             })
-
             .then(function(data){
-
-                 var imgBox = document.getElementById("image")
-        
-                 var titleBox = document.getElementById("heading")
 
                 
                 data.data.children.forEach(function(val, idx){
-
-
                 var json = data.data.children[idx].data
                 var images = json.url
                 var title = json.title
                 var person = json.author
                 var upvotes = json.ups
 
-                
-                var singleImg = document.createElement("img")
-                var textContent = document.createElement('p')
-                imgBox.appendChild(singleImg)
-                titleBox.appendChild(textContent)
-
-                singleImg.src = images
-                textContent.innerHTML = title
-             
-                
-                
+                 var content = document.createElement('div')
+                    content.id="container"
+                    start.appendChild(content)
 
 
-           
+                    var imgContainer = document.createElement('div')
+                    imgContainer.id="image"
+                    content.appendChild(imgContainer)
+                    var singleImg = document.createElement("img")
+                    singleImg.src = images
+                    imgContainer.appendChild(singleImg)
 
 
-                
+                    var titleContent = document.createElement('p')
+                    titleContent.id="heading"
+                    content.appendChild(titleContent)
+                    var textContent = document.createElement('p')
+                    titleContent.appendChild(textContent)
+                     textContent.innerHTML = title
+
+                    var info = document.createElement('div')
+                    info.id="pic-info"
+                    content.appendChild(info)
+
                 })
-
-
                 
             })
-
-
             .catch(function(err) {
                 // Error :(
             });
-
-
-
+    
+                    
+                  
+        }
+       
+        
     </script>   
     
   
