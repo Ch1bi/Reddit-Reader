@@ -158,6 +158,19 @@ favorites (<span class="number">0</span>)</p>
                     info.id="pic-info"
                     content.appendChild(info)
 
+                    var creditList = document.createElement('ul')
+                    info.appendChild(creditList)
+
+                    var creditItem = document.createElement('li')
+
+                    creditList.appendChild(creditItem)  
+
+                    var personNode = document.createTextNode(person)
+                    var likeNode = document.createTextNode(upvotes)
+                    
+                    creditItem.appendChild(personNode)
+                    creditItem.appendChild(likeNode)
+                    
                 })
                 
             })
