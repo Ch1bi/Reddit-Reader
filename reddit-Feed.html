@@ -42,7 +42,7 @@
                 justify-content: center;
             }
 
-            .container{
+            #container{
                 
                 margin:0 auto;
                 width:500px;
@@ -85,7 +85,7 @@
             }
 
       
-            .heading{
+            #heading{
                 font-family: 'Arvo', serif;
                 font-size: 18px;
                 line-height: 24px;
@@ -94,7 +94,7 @@
                 margin-bottom:2em;
             }
 
-            .pic-info{
+            #pic-info{
                 border-top: 1px solid #e8e8e8;
                 font-family: Helvetica, sans-serif;
                 font-size:12px;
@@ -140,62 +140,87 @@ favorites (<span class="number">0</span>)</p>
     
     <script>
 
- 
+    var start = document.getElementById("feed")
 
-        var content = document.getElementById('feed')
-      var html ="";
+        //1. set up the initial page
+        window.onload = function(){
 
-
-        // url (required), options (optional)
-fetch("https://www.reddit.com/r/food/top/.json")
-
-
-
-.then(function(response) {
-
-return response.json()
-
-})
-
-.then(function(data){
     
-    data.data.children.forEach(function(val, idx){
+                    var content = document.createElement('div')
+                    content.id="container"
+                    start.appendChild(content)
 
-        var json = data.data.children[idx].data
-        var images = json.url
-        var title = json.title
-        var person = json.author
-        var upvotes = json.ups
-     
-       html +='<div class="container">\n';
-       html +='<div id="image">\n';
-       html +='<img src="'+images+'">' + '<i class="fa fa-heart like" aria-hidden="true"></i>';
-       html +='</div>';
-       html +='<p class ="heading">'+title+'</p>\n';
-       html +='<div class="pic-info">' + ' <i class="fa fa-user " aria-hidden="true"></i>' 
-+'/u/'+person +" • "+ '<i class="fa fa-bolt" aria-hidden="true"></i>'+
-upvotes+' </div>';
-       html +='</div>';
+                    var imgContainer = document.createElement('div')
+                    imgContainer.id="image"
+                    content.appendChild(imgContainer)
+
+                    var titleContent = document.createElement('p')
+                    titleContent.id="heading"
+                    content.appendChild(titleContent)
+
+                    var info = document.createElement('div')
+                    info.id="pic-info"
+                    content.appendChild(info)
+                  
+
+        }
+
        
-    })
-
-    content.innerHTML = html
-
-    
-})
 
 
-.catch(function(err) {
-	// Error :(
-});
+        //2. use fetch to get pics and content from Reddit
+        fetch("https://www.reddit.com/r/food/top/.json")
 
 
+            .then(function(response) {
+
+            return response.json()
+
+            })
+
+            .then(function(data){
+
+                 var imgBox = document.getElementById("image")
+        
+                 var titleBox = document.getElementById("heading")
+
+                
+                data.data.children.forEach(function(val, idx){
 
 
+                var json = data.data.children[idx].data
+                var images = json.url
+                var title = json.title
+                var person = json.author
+                var upvotes = json.ups
 
-    
+                
+                var singleImg = document.createElement("img")
+                var textContent = document.createElement('p')
+                imgBox.appendChild(singleImg)
+                titleBox.appendChild(textContent)
+
+                singleImg.src = images
+                textContent.innerHTML = title
+             
+                
+                
 
 
+           
+
+
+                
+                })
+
+
+                
+            })
+
+
+            .catch(function(err) {
+                // Error :(
+            });
 
 
 
