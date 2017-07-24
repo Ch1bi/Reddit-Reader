@@ -135,7 +135,7 @@
 
                      <div id="favorites">
                 <p><i class="fa fa-heart" aria-hidden="true"></i>
-favorites (<span class="number">0</span>)</p>  
+favorites (<span id="number">0</span>)</p>  
             </div>
 
         </div>
@@ -154,9 +154,12 @@ favorites (<span class="number">0</span>)</p>
     //favorite route
     var favRoute = document.getElementById("favorites").addEventListener('click', changeRoutes, false)
 
+    //favs number
+    var favNum = document.getElementById("number");
+   
     
     
-        //1. initial page setup
+        //1. initial page setup 
         window.onload = function(){
 
                    //give subReddit the class clicked
@@ -265,12 +268,20 @@ favorites (<span class="number">0</span>)</p>
 
                    start.style.display = "none"
 
+                   showFavs()
+
                 }
 
                 break;
             }
   
             
+        }
+
+        function showFavs(){
+
+            //show no favorites alert box if no favorites
+             favNum.textContent++;
         }
 
 
