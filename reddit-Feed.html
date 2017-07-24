@@ -81,6 +81,23 @@
                 padding-top:1em;   
                 padding-bottom:1em;
             }
+
+            ul li{
+
+                display: inline-block;
+                list-style: none;
+            }
+
+        #creator:before {
+        content: "\f007";
+        font-family: FontAwesome;       
+        }
+
+         #likes:before {
+        content: "\f0e7";
+        font-family: FontAwesome;       
+        }
+
             .like{
                 
                 color:white;
@@ -162,14 +179,21 @@ favorites (<span class="number">0</span>)</p>
                     info.appendChild(creditList)
 
                     var creditItem = document.createElement('li')
+                    creditItem.id="creator"
 
-                    creditList.appendChild(creditItem)  
+                     var likeItem = document.createElement('li')
+                     likeItem.id="likes"
 
-                    var personNode = document.createTextNode(person)
+                    creditList.appendChild(creditItem) 
+                    creditList.appendChild(likeItem) 
+                    
+                    
+
+                    var personNode = document.createTextNode(person + "•") 
                     var likeNode = document.createTextNode(upvotes)
                     
                     creditItem.appendChild(personNode)
-                    creditItem.appendChild(likeNode)
+                    likeItem.appendChild(likeNode)
                     
                 })
                 
