@@ -58,7 +58,9 @@
             }
             
             #image{
+                
             }
+            
             #image:hover{
              
             }
@@ -98,14 +100,14 @@
         font-family: FontAwesome;       
         }
 
-            .like{
-                
-                color:white;
+             .like{
+                 display: none;
+                 margin-left:5px;
                 position:relative;
-                bottom:380px;
+                top:50px;
                 left:20px;
-                font-size:2em;
-            }
+                font-size:20px;
+            } 
 
             .clicked{
 
@@ -118,6 +120,29 @@
                 color:#57a2e4;
                 background-color:white
             }
+
+            #favorites-list{
+
+                display:none
+            }
+
+
+            #noFavs{
+                
+                display:block;
+                margin: 0 auto;
+                text-align: center;    
+                
+                width:500px;
+                height:50px;
+                background-color:#F9F4C4
+            }
+
+            #noFavs p{
+                
+                padding-top:3%;
+            }
+
         </style>
 
 
@@ -142,7 +167,12 @@ favorites (<span id="number">0</span>)</p>
 
         <div id="feed"> </div>
 
-        <div id="favorites-list"> </div>
+        <div id="favorites-list"> 
+
+            <div id="noFavs">
+                <p>No favorites yet.</p>
+            </div>
+        </div>
     
     <script>
      //where the content will go
@@ -154,19 +184,25 @@ favorites (<span id="number">0</span>)</p>
     //favorite route
     var favRoute = document.getElementById("favorites").addEventListener('click', changeRoutes, false)
 
+    //fav div
+    var favDiv = document.getElementById("favorites-list")
+
     //favs number
     var favNum = document.getElementById("number");
+
    
     
     
         //1. initial page setup 
         window.onload = function(){
 
-                   //give subReddit the class clicked
+       //give subReddit the class clicked
     document.getElementById("subReddit").classList.add("clicked")
     document.getElementById("favorites").classList.add("unClicked")
-    
 
+
+
+    
             //2. use fetch to get pics and content from Reddit
         fetch("https://www.reddit.com/r/food/top/.json")
             .then(function(response) {
@@ -189,6 +225,7 @@ favorites (<span id="number">0</span>)</p>
 
                     var imgContainer = document.createElement('div')
                     imgContainer.id="image"
+                    imgContainer.innerHTML='<i class="fa fa-heart like" aria-hidden="true"></i>'
                     content.appendChild(imgContainer)
                     var singleImg = document.createElement("img")
                     singleImg.src = images
@@ -200,7 +237,7 @@ favorites (<span id="number">0</span>)</p>
                     content.appendChild(titleContent)
                     var textContent = document.createElement('p')
                     titleContent.appendChild(textContent)
-                     textContent.innerHTML = title
+                    textContent.innerHTML = title
 
                     var info = document.createElement('div')
                     info.id="pic-info"
@@ -225,13 +262,20 @@ favorites (<span id="number">0</span>)</p>
                     
                     creditItem.appendChild(personNode)
                     likeItem.appendChild(likeNode)
-                    
+
+                                 //hover eventlistener
+                    var imagesContainer = document.getElementById('images')
+                
+
+   
                 })
                 
             })
             .catch(function(err) {
                 // Error :(
             });
+
+
         }
 
         //function that changes color of routes when clicked on
@@ -250,8 +294,10 @@ favorites (<span id="number">0</span>)</p>
 
                     subReddit.classList.remove('unClicked')
                     subReddit.classList.add('clicked')
-
+                    
                     start.style.display="initial"
+                    favDiv.style.display="none"
+                    console.log(favDiv)
                 }
 
                 break;
@@ -267,7 +313,7 @@ favorites (<span id="number">0</span>)</p>
                    favorites.classList.add('clicked')
 
                    start.style.display = "none"
-
+                    favDiv.style.display="initial"
                    showFavs()
 
                 }
@@ -278,10 +324,21 @@ favorites (<span id="number">0</span>)</p>
             
         }
 
+        function hover(){
+
+             console.log("hovering")
+        }
+
+    
+
         function showFavs(){
 
             //show no favorites alert box if no favorites
-             favNum.textContent++;
+            if(favNum.textContent == 0){
+
+                console.log("I am nothing")
+            }
+            //  favNum.textContent++;
         }
 
 
