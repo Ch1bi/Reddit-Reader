@@ -45,18 +45,18 @@
             }
             #subReddit{
                 display: inline-block;
-                background-color:#57a2e4;
-                color:white;
                 font-size:16px;
                 font-family: Helvetica, sans-serif;
                 padding: 0 0.5em 0 0.5em;
+          
             }
+
             #favorites{
                 display: inline-block;
                 font-family: Helvetica, sans-serif;
                 font-size:16px;
-                color:#57a2e4;
             }
+            
             #image{
             }
             #image:hover{
@@ -106,6 +106,18 @@
                 left:20px;
                 font-size:2em;
             }
+
+            .clicked{
+
+                color:white;
+                background-color:#57a2e4;
+            }
+
+            .unClicked{
+
+                color:#57a2e4;
+                background-color:white
+            }
         </style>
 
 
@@ -129,12 +141,28 @@ favorites (<span class="number">0</span>)</p>
         </div>
 
         <div id="feed"> </div>
+
+        <div id="favorites-list"> </div>
     
     <script>
+     //where the content will go
     var start = document.getElementById("feed")
     
-        //1. set up the initial page
+    //subReddit route
+    var foodRoute = document.getElementById("subReddit").addEventListener('click', changeRoutes, false)
+
+    //favorite route
+    var favRoute = document.getElementById("favorites").addEventListener('click', changeRoutes, false)
+
+    
+    
+        //1. initial page setup
         window.onload = function(){
+
+                   //give subReddit the class clicked
+    document.getElementById("subReddit").classList.add("clicked")
+    document.getElementById("favorites").classList.add("unClicked")
+    
 
             //2. use fetch to get pics and content from Reddit
         fetch("https://www.reddit.com/r/food/top/.json")
@@ -201,10 +229,51 @@ favorites (<span class="number">0</span>)</p>
             .catch(function(err) {
                 // Error :(
             });
-    
-                    
-                  
         }
+
+        //function that changes color of routes when clicked on
+        function changeRoutes(e){
+
+            console.log(e)
+
+            switch(e.target.id){
+
+                case 'subReddit':
+
+                if(!subReddit.classList.contains("clicked")){
+
+                    favorites.classList.remove('clicked')
+                    favorites.classList.add('unClicked')
+
+                    subReddit.classList.remove('unClicked')
+                    subReddit.classList.add('clicked')
+
+                    start.style.display="initial"
+                }
+
+                break;
+
+                case 'favorites':
+
+                if(!favorites.classList.contains("clicked")){
+
+                    subReddit.classList.remove('clicked')
+                    subReddit.classList.add('unClicked')
+
+                   favorites.classList.remove('unClicked')
+                   favorites.classList.add('clicked')
+
+                   start.style.display = "none"
+
+                }
+
+                break;
+            }
+  
+            
+        }
+
+
        
         
     </script>   
