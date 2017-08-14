@@ -144,7 +144,6 @@
 
     function hover (e) {
       
-      hearts[5].style.color = "blue"
     
     }
 
