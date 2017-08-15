@@ -22,11 +22,13 @@ body{
                 width:500px;
                 box-shadow: 1px 1px 1px 1px  rgba(0, 0, 0, 0.2);
             }
+            
             .header{
                 
                 border-bottom: 1px solid #e8e8e8;;
                 margin-bottom: 3em;
             }
+
             #subReddit{
                 display: inline-block;
                 font-size:16px;
@@ -85,7 +87,7 @@ body{
         }
 
              .like{
-                
+                 
                  margin-left:5px;
                 position:relative;
                 top:50px;

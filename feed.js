@@ -16,7 +16,10 @@
     var favNum = document.getElementById('number')
 
     //variable for hearts on page
-    var hearts;
+    var hearts
+
+    //variable for hovered item on page
+    var hovered
     
 
 
@@ -49,6 +52,7 @@
                 imgContainer.innerHTML = '<i class="fa fa-heart like" aria-hidden="true"></i>'
                 content.appendChild(imgContainer)
                 var singleImg = document.createElement('img')
+                singleImg.className = "picImg"
                 singleImg.src = images
                 imgContainer.appendChild(singleImg)
 
@@ -137,13 +141,18 @@
 
     function picLike(e){
 
-      console.log(e)
-
-    //  e.target.style.color="red"
+    console.log(e)
+    //get index of the heart icon
+    var idx = Array.from(hearts).indexOf(e.target)
+    
+   
     }
 
     function hover (e) {
-      
+
+        //get index of the hovered item - e.target starts with one but array is 0 based so i added +1 so array isn't undefined
+    var idx = Array.from(hovered).indexOf(e.target) + 1
+    hearts[idx].style.visibility="visible"
     
     }
 
@@ -155,21 +164,29 @@
             //  favNum.textContent++;
     }
 
+    function moveOut(e){
+
+      var idx = Array.from(hovered).indexOf(e.target) + 1
+      hearts[idx].style.visibility="hidden"
+
+    }
     //get the class names and adds eventlisteners
     function manipulate(){
 
-      var hovered = document.querySelectorAll('.image')
+      hovered = document.querySelectorAll('.picImg')
       hearts = document.querySelectorAll(".fa-heart")
-      
+
       
       for(var i = 0; i < hearts.length; i++){
 
         hearts[i].addEventListener("click", picLike)
+        hearts[i].style.visibility = "hidden"
       }
 
       for(var i = 0; i < hovered.length; i++){
 
         hovered[i].addEventListener("mouseover", hover)
+        hovered[i].addEventListener("mouseout",moveOut )
       }
       
     }
