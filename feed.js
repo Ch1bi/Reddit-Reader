@@ -1,7 +1,7 @@
 // where the content will go
     var start = document.getElementById('feed')
 
-    start.addEventListener("mouseover", hover)
+    start.addEventListener('mouseover', hover)
 
     // subReddit route
     var foodRoute = document.getElementById('subReddit').addEventListener('click', changeRoutes, false)
@@ -15,90 +15,83 @@
     // favs number
     var favNum = document.getElementById('number')
 
-    //variable for hearts on page
+    // variable for hearts on page
     var hearts
 
-    //variable for hovered item on page
+    // variable for hovered item on page
     var hovered
-    
-
 
         // 1. initial page setup
 
        // give subReddit the class clicked
-      document.getElementById('subReddit').classList.add('clicked')
-      document.getElementById('favorites').classList.add('unClicked')
+    document.getElementById('subReddit').classList.add('clicked')
+    document.getElementById('favorites').classList.add('unClicked')
 
-      $.ajax({
-        
-            url: 'https://www.reddit.com/r/food/top/.json',
-            type: 'GET',
-        
-            success: function (data) {
-             
-              data.data.children.forEach(function (val, idx) {
-                var json = data.data.children[idx].data
-                var images = json.url
-                var title = json.title
-                var person = json.author
-                var upvotes = json.ups
+    $.ajax({
 
-                var content = document.createElement('div')
-                content.id = 'container'
-                start.appendChild(content)
+      url: 'https://www.reddit.com/r/food/top/.json',
+      type: 'GET',
 
-                var imgContainer = document.createElement('div')
-                imgContainer.className = 'image'
-                imgContainer.innerHTML = '<i class="fa fa-heart like" aria-hidden="true"></i>'
-                content.appendChild(imgContainer)
-                var singleImg = document.createElement('img')
-                singleImg.className = "picImg"
-                singleImg.src = images
-                imgContainer.appendChild(singleImg)
+      success: function (data) {
+        data.data.children.forEach(function (val, idx) {
+          var json = data.data.children[idx].data
+          var images = json.url
+          var title = json.title
+          var person = json.author
+          var upvotes = json.ups
 
-                var titleContent = document.createElement('p')
-                titleContent.id = 'heading'
-                
-                content.appendChild(titleContent)
-                var textContent = document.createElement('p')
-                titleContent.appendChild(textContent)
-                textContent.innerHTML = title
+          var content = document.createElement('div')
+          content.id = 'container'
+          start.appendChild(content)
 
-                var info = document.createElement('div')
-                info.id = 'pic-info'
-                content.appendChild(info)
+          var imgContainer = document.createElement('div')
+          imgContainer.className = 'image'
+          imgContainer.innerHTML = '<i class="fa fa-heart like" aria-hidden="true"></i>'
+          content.appendChild(imgContainer)
+          var singleImg = document.createElement('img')
+          singleImg.className = 'picImg'
+          singleImg.src = images
+          imgContainer.appendChild(singleImg)
 
-                var creditList = document.createElement('ul')
-                info.appendChild(creditList)
+          var titleContent = document.createElement('p')
+          titleContent.id = 'heading'
 
-                var creditItem = document.createElement('li')
-                creditItem.id = 'creator'
+          content.appendChild(titleContent)
+          var textContent = document.createElement('p')
+          titleContent.appendChild(textContent)
+          textContent.innerHTML = title
 
-                var likeItem = document.createElement('li')
-                likeItem.id = 'likes'
+          var info = document.createElement('div')
+          info.id = 'pic-info'
+          content.appendChild(info)
 
-                creditList.appendChild(creditItem)
-                creditList.appendChild(likeItem)
+          var creditList = document.createElement('ul')
+          info.appendChild(creditList)
 
-                var personNode = document.createTextNode(person + '•')
-                var likeNode = document.createTextNode(upvotes)
+          var creditItem = document.createElement('li')
+          creditItem.id = 'creator'
 
-                creditItem.appendChild(personNode)
-                likeItem.appendChild(likeNode)
+          var likeItem = document.createElement('li')
+          likeItem.id = 'likes'
 
-              })
+          creditList.appendChild(creditItem)
+          creditList.appendChild(likeItem)
 
-              manipulate()
-            },
-        
-            error: function () {
-             
-              console.log("nopers!")
-            }
-        
+          var personNode = document.createTextNode(person + '•')
+          var likeNode = document.createTextNode(upvotes)
+
+          creditItem.appendChild(personNode)
+          likeItem.appendChild(likeNode)
         })
-  
 
+        manipulate()
+      },
+
+      error: function () {
+        console.log('nopers!')
+      }
+
+    })
 
         // function that changes color of routes when clicked on
     function changeRoutes (e) {
@@ -139,21 +132,21 @@
       }
     }
 
-    function picLike(e){
+    function picLike (e) {
+      // when heart is clicked, favorite this item
+      //get all info - name and likes of person
+    // img - console.log(e.target.nextSibling.currentSrc)      
+      // title -console.log(e.target.parentNode.nextSibling.childNodes[0].childNodes[0])
 
-    console.log(e)
-    //get index of the heart icon
-    var idx = Array.from(hearts).indexOf(e.target)
-    
-   
+    // get index of the heart icon
+      var idx = Array.from(hearts).indexOf(e.target)
+      favNum.textContent++;
     }
 
     function hover (e) {
-
-        //get index of the hovered item - e.target starts with one but array is 0 based so i added +1 so array isn't undefined
-    var idx = Array.from(hovered).indexOf(e.target) + 1
-    hearts[idx].style.visibility="visible"
-    
+        // get index of the hovered item
+      var idx = Array.from(hovered).indexOf(e.target) + 1
+      hearts[idx].style.visibility = 'visible'
     }
 
     function showFavs () {
@@ -164,29 +157,25 @@
             //  favNum.textContent++;
     }
 
-    function moveOut(e){
-
+    function moveOut (e) {
       var idx = Array.from(hovered).indexOf(e.target) + 1
-      hearts[idx].style.visibility="hidden"
 
+      window.setTimeout(function () {
+        hearts[idx].style.visibility = 'hidden'
+      }, 2000)
     }
-    //get the class names and adds eventlisteners
-    function manipulate(){
-
+    // get the class names and adds eventlisteners
+    function manipulate () {
       hovered = document.querySelectorAll('.picImg')
-      hearts = document.querySelectorAll(".fa-heart")
+      hearts = document.querySelectorAll('.fa-heart')
 
-      
-      for(var i = 0; i < hearts.length; i++){
-
-        hearts[i].addEventListener("click", picLike)
-        hearts[i].style.visibility = "hidden"
+      for (var i = 0; i < hearts.length; i++) {
+        hearts[i].addEventListener('click', picLike)
+        hearts[i].style.visibility = 'hidden'
       }
 
-      for(var i = 0; i < hovered.length; i++){
-
-        hovered[i].addEventListener("mouseover", hover)
-        hovered[i].addEventListener("mouseout",moveOut )
+      for (var i = 0; i < hovered.length; i++) {
+        hovered[i].addEventListener('mouseover', hover)
+        hovered[i].addEventListener('mouseout', moveOut)
       }
-      
     }
