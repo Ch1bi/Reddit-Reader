@@ -133,10 +133,17 @@
     }
 
     function picLike (e) {
+      
       // when heart is clicked, favorite this item
       //get all info - name and likes of person
-    // img - console.log(e.target.nextSibling.currentSrc)      
-      // title -console.log(e.target.parentNode.nextSibling.childNodes[0].childNodes[0])
+
+    var currentImg =  e.target.nextSibling.currentSrc
+
+    var currentTitle = e.target.parentNode.nextSibling.childNodes[0].childNodes[0].data
+
+    var currentPerson = e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[0].childNodes[0].childNodes[0].data
+
+    var currentLikes = e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[0].childNodes[1].childNodes[0].data
 
     // get index of the heart icon
       var idx = Array.from(hearts).indexOf(e.target)
