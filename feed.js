@@ -1,3 +1,5 @@
+
+
 // where the content will go
     var start = document.getElementById('feed')
 
@@ -140,7 +142,6 @@
       var idx = Array.from(hearts).indexOf(e.target)
       favNum.textContent++
 
-      var favorites = {}
 
       var currentImg = e.target.nextSibling.currentSrc
       var currentTitle = e.target.parentNode.nextSibling.childNodes[0].childNodes[0].data
@@ -148,6 +149,8 @@
       var currentPerson = e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[0].childNodes[0].childNodes[0].data
 
       var currentLikes = Number(e.target.parentElement.nextElementSibling.nextElementSibling.childNodes[0].childNodes[1].childNodes[0].data)
+
+
 
       var obj = {
 
@@ -158,7 +161,19 @@
 
       }
 
-      console.log(obj)
+      // get entries before pushing
+      var allFavs = JSON.parse(localStorage.getItem("favorites"))
+      
+      if(allFavs == null){ //if allFavs doesn't exist then it equals an array
+
+        allFavs = []
+      }
+
+         //save all entries to local storage
+         allFavs.push(obj)
+        localStorage.setItem("favorites", JSON.stringify(allFavs))
+        
+        console.log(JSON.parse(localStorage.getItem("favorites")) )
     }
 
     function hover (e) {
