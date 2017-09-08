@@ -122,10 +122,9 @@ body{
                 
                 width:500px;
                 height:50px;
-                background-color:#F9F4C4
             }
 
-            #noFavs p{
+            #favs-msg{
                 
-                padding-top:3%;
+                background-color:#F9F4C4;                
             }

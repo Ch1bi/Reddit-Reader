@@ -13,6 +13,8 @@
 
     // fav div
     var favDiv = document.getElementById('favorites-list')
+    
+    var nonFav = document.getElementById("fav-msg")
 
     // favs number
     var favNum = document.getElementById('number')
@@ -35,6 +37,10 @@
       type: 'GET',
 
       success: function (data) {
+
+        //gets num of favs
+        favNum.textContent = getNumOfFavs()
+
         data.data.children.forEach(function (val, idx) {
           var json = data.data.children[idx].data
           var images = json.url
@@ -97,7 +103,6 @@
 
         // function that changes color of routes when clicked on
     function changeRoutes (e) {
-      console.log(e)
 
       switch (e.target.id) {
         case 'subReddit':
@@ -166,10 +171,11 @@
       if(allFavs == null){ //if allFavs doesn't exist then it equals an array
 
         allFavs = []
+
       }
 
          //save all entries to local storage
-         allFavs.push(obj)
+        allFavs.push(obj)
         localStorage.setItem("favorites", JSON.stringify(allFavs))
         
         console.log(JSON.parse(localStorage.getItem("favorites")))
@@ -183,11 +189,26 @@
       hearts[idx].style.visibility = 'visible'
     }
 
+    function getNumOfFavs(){
+
+      return JSON.parse(localStorage.getItem("favorites"))  ?
+
+      JSON.parse(localStorage.getItem("favorites")).length : 0
+
+             
+  
+    }
+
     function showFavs () {
-            // show no favorites alert box if no favorites
-      if (favNum.textContent == 0) {
-        console.log('I am nothing')
-      }
+    
+
+       // show no favorites alert box if no favorites in local storage
+       if (JSON.parse(localStorage.getItem("favorites")).length > 0) {
+        
+        nonFav.style.display="none"
+      
+  
+       }
           
       //load local storage favs
       JSON.parse(localStorage.getItem("favorites")).forEach(function(val){
@@ -200,7 +221,6 @@
 
         var imgContainer = document.createElement('div')
         imgContainer.className = 'image'
-        imgContainer.innerHTML = '<i class="fa fa-heart like" aria-hidden="true"></i>'
         content.appendChild(imgContainer)
         var singleImg = document.createElement('img')
         singleImg.className = 'picImg'
@@ -248,6 +268,8 @@
         hearts[idx].style.visibility = 'hidden'
       }, 2000)
     }
+
+
     // get the class names and adds eventlisteners
     function manipulate () {
       hovered = document.querySelectorAll('.picImg')
