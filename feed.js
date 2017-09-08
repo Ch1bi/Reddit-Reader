@@ -111,7 +111,6 @@
 
             start.style.display = 'initial'
             favDiv.style.display = 'none'
-            console.log(favDiv)
           }
 
           break
@@ -173,8 +172,10 @@
          allFavs.push(obj)
         localStorage.setItem("favorites", JSON.stringify(allFavs))
         
-        console.log(JSON.parse(localStorage.getItem("favorites")) )
+        console.log(JSON.parse(localStorage.getItem("favorites")))
     }
+
+
 
     function hover (e) {
         // get index of the hovered item
@@ -187,7 +188,57 @@
       if (favNum.textContent == 0) {
         console.log('I am nothing')
       }
-            //  favNum.textContent++;
+          
+      //load local storage favs
+      JSON.parse(localStorage.getItem("favorites")).forEach(function(val){
+
+        console.log(val)
+
+        var content = document.createElement('div')
+        content.id = 'container'
+        favDiv.appendChild(content)
+
+        var imgContainer = document.createElement('div')
+        imgContainer.className = 'image'
+        imgContainer.innerHTML = '<i class="fa fa-heart like" aria-hidden="true"></i>'
+        content.appendChild(imgContainer)
+        var singleImg = document.createElement('img')
+        singleImg.className = 'picImg'
+        singleImg.src = val.img
+        imgContainer.appendChild(singleImg)
+
+        var titleContent = document.createElement('p')
+        titleContent.id = 'heading'
+
+        content.appendChild(titleContent)
+        var textContent = document.createElement('p')
+        titleContent.appendChild(textContent)
+        textContent.innerHTML = val.title
+
+        var info = document.createElement('div')
+        info.id = 'pic-info'
+        content.appendChild(info)
+
+        var creditList = document.createElement('ul')
+        info.appendChild(creditList)
+
+        var creditItem = document.createElement('li')
+        creditItem.id = 'creator'
+
+        var likeItem = document.createElement('li')
+        likeItem.id = 'likes'
+
+        creditList.appendChild(creditItem)
+        creditList.appendChild(likeItem)
+
+        var personNode = document.createTextNode(val.creator + '•')
+        var likeNode = document.createTextNode(val.likes)
+
+        creditItem.appendChild(personNode)
+        likeItem.appendChild(likeNode)
+
+      })
+
     }
 
     function moveOut (e) {
