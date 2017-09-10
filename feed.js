@@ -206,9 +206,11 @@
        if (JSON.parse(localStorage.getItem("favorites")).length > 0) {
         
         nonFav.style.display="none"
-      
   
        }
+
+       //clear div first
+       favDiv.innerHTML = ""
           
       //load local storage favs
       JSON.parse(localStorage.getItem("favorites")).forEach(function(val){
